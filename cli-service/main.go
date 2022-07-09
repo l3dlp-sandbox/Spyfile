@@ -27,14 +27,14 @@ type Error struct {
 }
 
 func atime(fi os.FileInfo) time.Time {
-	return time.Unix(0, fi.Sys().(*syscall.Stat_t).Atim.Nanoseconds())
+	return time.Unix(0, fi.Sys().(*syscall.Stat_t).Atim.Nsec)
 }
 
 func main() {
 	args := os.Args
 	var file string
 	if len(args) < 2 {
-		file = "/l3dlp/config"
+		file = "/datamix/config"
 	} else {
 		file = args[1]
 	}
@@ -98,7 +98,7 @@ func main() {
 				_ = ok
 				switch evt.(type) {
 				case Event:
-					fmt.Println(evt.(Event).Name)
+					fmt.Println("EVENT:", evt.(Event).Name)
 					continue
 				case Error:
 					/*
@@ -107,6 +107,7 @@ func main() {
 							log.Println(err)
 						}
 					*/
+					fmt.Println("ERROR:", evt.(Error).Error.Error())
 					continue
 				}
 			}
