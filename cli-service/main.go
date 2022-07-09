@@ -35,9 +35,6 @@ func main() {
 	var file string
 	if len(args) < 2 {
 		file = "/l3dlp/config"
-		if err != nil {
-			panic(err)
-		}
 	} else {
 		file = args[1]
 	}
@@ -101,10 +98,7 @@ func main() {
 				_ = ok
 				switch evt.(type) {
 				case Event:
-					err := fmt.Println(evt.(Event).Name)
-					if err != nil {
-						log.Println(err)
-					}
+					fmt.Println(evt.(Event).Name)
 					continue
 				case Error:
 					/*
