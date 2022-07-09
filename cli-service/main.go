@@ -27,7 +27,7 @@ type Error struct {
 }
 
 func atime(fi os.FileInfo) time.Time {
-	return time.Unix(0, fi.Sys().(*syscall.Win32FileAttributeData).LastAccessTime.Nanoseconds())
+	return time.Unix(0, fi.Sys().(*syscall.Stat_t).Atim.Nanoseconds())
 }
 
 func main() {
